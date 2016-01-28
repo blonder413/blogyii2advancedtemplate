@@ -113,39 +113,6 @@ AppAsset::register($this);
             </div>
             <!-- End Google Adsense -->
             
-            <div class="col-sm-12 col-md-12">
-                <?php
-                $numDia = date('N');
-                
-                switch ($numDia) {
-                    case 1: // lunes
-                        $img = '@web/img/bannerphpcapa8.png';
-                        $alt = 'php';
-                        break;
-                    case 2: // martes
-                        $img = '@web/img/banneryii2capa8.png';
-                        $alt = 'yii2';
-                        break;
-                    case 3: // miércoles
-                        $img = '@web/img/bannerjavacapa8.png';
-                        $alt = 'java';
-                        break;
-                    case 4: // jueves
-                        $img = '@web/img/banneringlescapa8.png';
-                        $alt = 'inglés';
-                        break;
-                    default:
-                        $img = '@web/img/bannerphpcapa8.png';
-                        $alt = 'php';
-                }
-                ?>
-            <?= Html::a(
-                Html::img($img, ['class'=>'img-responsive center-block', 'alt' => $alt]),
-                'http://www.capa8.tv/en-vivo',
-                [ 'target' => '_blank', 'title'=>'ver la clase' ]
-            ) ?>
-            </div>
-          
           <!-- Google Search -->
           <div class="col-sm-12">
                 <script>

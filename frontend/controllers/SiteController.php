@@ -3,6 +3,8 @@ namespace frontend\controllers;
 
 use Yii;
 use common\models\LoginForm;
+use frontend\models\Articulo;
+use frontend\models\Categoria;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
@@ -138,7 +140,16 @@ class SiteController extends Controller
      */
     public function actionAbout()
     {
-        return $this->render('about');
+        $categorias     = Categoria::find()->orderBy('categoria asc')->all();
+        $mas_visitado   = Articulo::find()->orderBy('numero_visitas desc')->limit(5)->all();
+        
+        return $this->render(
+            'about',
+            [
+                'categorias'    => $categorias,
+                'mas_visitado'  => $mas_visitado,
+            ]
+        );
     }
 
     /**

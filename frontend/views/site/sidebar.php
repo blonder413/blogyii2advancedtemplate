@@ -6,62 +6,62 @@ use yii\helpers\Html;
         <h4>Mis Redes Sociales</h4>
         <?= Html::a(
             Html::img("@web/img/google-plus-c.png", ['class'=>'img-thumbnail','width' => '50', 'alt' => 'Mi perfil en Google+']),
-            'https://plus.google.com/u/0/+JonathanMoralesSalazar',
+            '@google+',
             ['target' => '_blank', 'title'  => 'Mi perfil en Google+']
         ) ?>
         
         <?= Html::a(
             Html::img("@web/img/twitter-c.png", ['class'=>'img-thumbnail','width' => '50', 'alt' => 'Mi perfil en Twitter']),
-            'https://twitter.com/blonder413',
+            '@twitter',
             ['target' => '_blank', 'title'  => 'Mi perfil en Twitter']
         ) ?>
         
         <?= Html::a(
             Html::img("@web/img/facebook-c.png", ['class'=>'img-thumbnail','width' => '50', 'alt' => 'Mi biografía en Facebook']),
-            'https://www.facebook.com/blonder413',
+            '@facebook',
             ['target' => '_blank', 'title'  => 'Mi perfil en Facebook']
         ) ?>
         
         <?= Html::a(
             Html::img("@web/img/youtube-c.png", ['class'=>'img-thumbnail','width' => '50', 'alt' => 'Mi perfil en Youtube']),
-            'https://www.youtube.com/blonder413',
+            '@youtube',
             ['target' => '_blank', 'title'  => 'Mi perfil en Youtube']
         ) ?>
         <br>
         <?= Html::a(
             Html::img("@web/img/vimeo-c.png", ['class'=>'img-thumbnail','width' => '50', 'alt' => 'Mi perfil en Vimeo']),
-            'https://vimeo.com/blonder413',
+            '@vimeo',
             ['target' => '_blank', 'title'  => 'Mi perfil en Vimeo']
         ) ?>
         
         <?= Html::a(
             Html::img("@web/img/github-c.png", ['class'=>'img-thumbnail','width' => '50', 'alt' => 'Mi repositorio en Github']),
-            'https://github.com/blonder413/',
+            '@github',
             ['target' => '_blank', 'title'  => 'Mi repositorio en Github']
         ) ?>
         
         <?= Html::a(
             Html::img("@web/img/linked-in-c.png", ['class'=>'img-thumbnail','width' => '50', 'alt' => 'Mi perfil en LinkedIn']),
-            'https://www.linkedin.com/in/blonder413',
+            '@linkedin',
             ['target' => '_blank', 'title'  => 'Mi perfil en LinkedIn']
         ) ?>
         
         <?= Html::a(
             Html::img("@web/img/delicious-c.png", ['class'=>'img-thumbnail','width' => '50', 'alt' => 'Mi enlaces en Delicious']),
-            'https://delicious.com/blonder413',
+            '@delicious',
             ['target' => '_blank', 'title'  => 'Mi enlaces en Delicious']
         ) ?>
     </div>
 
   <div class="list-group">
     <h4>Categorías</h4>
-      <?php foreach( $categories as $key => $value ): ?>
+      <?php foreach( $categorias as $key => $value ): ?>
         <?= Html::a(
-            Html::img("@web/img/categorias/$value->seo_slug.png", ['alt' => $value->category, 'width' => '40']) . " " . $value->category,
+            Html::img("@web/img/categorias/$value->seo_slug.png", ['alt' => $value->categoria, 'width' => '40']) . " " . $value->categoria,
             ['/categoria/' . $value->seo_slug],
             [
                 'class' => 'list-group-item',
-                'title' => $value->category,
+                'title' => $value->categoria,
             ]
         ) ?>
       <?php endforeach; ?>
@@ -104,15 +104,15 @@ use yii\helpers\Html;
   <div class="list-group">
     <h4>Artículos Populares</h4>
 
-    <?php foreach ($most_visited as $key => $value): ?>
+    <?php foreach ($mas_visitado as $key => $value): ?>
 
     <a href="/articulo/<?= $value->seo_slug ?>" class="list-group-item">
-      <h4 class="list-group-item-heading"><?php echo $value->title; ?></h4>
+      <h4 class="list-group-item-heading"><?php echo $value->titulo; ?></h4>
       <p class="list-group-item-text">
         <?php echo $value->abstract; ?>
       </p>
         <p>
-            <small><span class="glyphicon glyphicon-eye-open">&nbsp;</span><?= $value->visit_counter ?> visitas</small>
+            <small><span class="glyphicon glyphicon-eye-open">&nbsp;</span><?= $value->numero_visitas ?> visitas</small>
         </p>
     </a>
     <?php endforeach; ?>
