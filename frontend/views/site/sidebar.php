@@ -104,12 +104,12 @@ use yii\helpers\Html;
   <div class="list-group">
     <h4>Artículos Populares</h4>
 
-    <?php foreach ($mas_visitado as $key => $value): ?>
+    <?php foreach ($mas_visitados as $key => $value): ?>
 
     <a href="/articulo/<?= $value->seo_slug ?>" class="list-group-item">
       <h4 class="list-group-item-heading"><?php echo $value->titulo; ?></h4>
       <p class="list-group-item-text">
-        <?php echo $value->abstract; ?>
+        <?php echo $value->resumen; ?>
       </p>
         <p>
             <small><span class="glyphicon glyphicon-eye-open">&nbsp;</span><?= $value->numero_visitas ?> visitas</small>

@@ -1,53 +1,95 @@
-<?php
+    <?php
+    use frontend\models\Helper;
+    use yii\helpers\Html;
+    use yii\helpers\HtmlPurifier;
+    use yii\widgets\Breadcrumbs;
+    use yii\widgets\LinkPager;
+    /* @var $this yii\web\View */
+    $this->title = 'Mi Blog';
+    setlocale(LC_TIME, 'es_CO.UTF-8');
+    ?>
 
-/* @var $this yii\web\View */
+    <section class="posts col-md-9">
 
-$this->title = 'My Yii Application';
-?>
-<div class="site-index">
+        <?= Breadcrumbs::widget([
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+        ]) ?>
 
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
+        <?php foreach ($articulos as $key => $value): ?>
+            <article class="post clear-fix">
+                <?= Html::a(
+                    Html::img(
+                        '@web/img/categories/' . $value->categoria->seo_slug . '.png',
+                        [
+                            // 'class' => 'img-circle',
+                            'alt'   => $value->categoria->categoria,
+                            'class' => 'img-thumbnail',
+                        ]
+                    ),
+                    ['/categoria/' . Html::encode("{$value->categoria->seo_slug}")],
+                    [
+                        'class' => 'thumb pull-left',
+                    ]
+                );
+                ?>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
+                <h3 class="post-title">
+                    <?= Html::a(
+                        Html::encode("{$value->titulo}"),
+                        ['/articulo/' . Html::encode("{$value->seo_slug}")],
+                        [
+                            'title' => Html::encode("{$value->titulo}"),
+                        ]
+                    ) ?>
+                </h3>
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
+                <div class="post-date">
+                    <span class="glyphicon glyphicon-user">&nbsp;</span><span class="post-author"><?= ucWords(HTml::encode("{$value->createdBy->name}")) ?></span>
+                    &nbsp;|
+                    <span class="glyphicon glyphicon-calendar">&nbsp;</span><?= strftime("%c", strtotime($value->created_at)) ?>
+                </div>
 
-    <div class="body-content">
+                <p class="post-content">
+                    <?php
+                    if (empty($value->resumen)) {
+                        echo HtmlPurifier::process(Helper::myTruncate($value->detalle, 300, " ", "..."));
+                    } else {
+                        echo $value->resumen;
+                    }
+                    ?>
+                </p>
 
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+                <div class="container-buttons">
+                    <?= Html::a(
+                        'Ver Más &raquo;',
+                        ['/articulo/' . Html::encode("{$value->seo_slug}")],
+                        [
+                            'class' => 'btn btn-primary',
+                            'title' => 'Ver artículo completo',
+                        ]
+                    ) ?>
+                    <?= Html::a(
+                        "Comentarios <span class='badge'>$value->totalComentarios</span>",
+                        ['/articulo/' . Html::encode("{$value->seo_slug}") . '#comments'],
+                        [
+                            'class' => 'btn btn-success',
+                            'title' => 'Ver Comentarios',
+                        ]
+                    ) ?>
+                </div>
+            </article>
+        <?php endforeach; ?>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+        <div class="row text-center"><?php echo LinkPager::widget(['pagination'=>$pagination]); ?></div>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+    </section>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
-        </div>
-
-    </div>
-</div>
+    <aside class="hidden-xs hidden-sm col-md-3">
+        <?= $this->render(
+            '/site/sidebar',
+            [
+                'categorias'    => $categorias,
+                'mas_visitados'  => $mas_visitados,
+            ]
+        ) ?>
+    </aside>

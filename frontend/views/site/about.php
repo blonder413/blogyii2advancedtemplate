@@ -175,7 +175,7 @@ $this->params['breadcrumbs'][] = $this->title;
         '/site/sidebar',
         [
             'categorias'    => $categorias,
-            'mas_visitado'  => $mas_visitado,
+            'mas_visitados'  => $mas_visitados,
         ]
     ) ?>
 </aside>

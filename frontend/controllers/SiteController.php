@@ -14,6 +14,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\data\Pagination;
 
 /**
  * Site controller
@@ -74,7 +75,28 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $query = Articulo::find();
+
+        $pagination = new Pagination([
+            'defaultPageSize'   => 15,
+            'totalCount'        => $query->count(),
+        ]);
+
+        $articulos = $query->orderBy('id desc')
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+
+        $categorias = Categoria::find()->orderBy('categoria asc')->all();
+
+        $mas_visitados = Articulo::find()->orderBy('numero_visitas desc')->limit(5)->all();
+
+        return $this->render('index', [
+            'articulos'      => $articulos,
+            'categorias'    => $categorias,
+            'mas_visitados'  => $mas_visitados,
+            'pagination'    => $pagination,
+        ]);
     }
 
     /**
@@ -141,13 +163,13 @@ class SiteController extends Controller
     public function actionAbout()
     {
         $categorias     = Categoria::find()->orderBy('categoria asc')->all();
-        $mas_visitado   = Articulo::find()->orderBy('numero_visitas desc')->limit(5)->all();
+        $mas_visitados   = Articulo::find()->orderBy('numero_visitas desc')->limit(5)->all();
         
         return $this->render(
             'about',
             [
                 'categorias'    => $categorias,
-                'mas_visitado'  => $mas_visitado,
+                'mas_visitados'  => $mas_visitados,
             ]
         );
     }

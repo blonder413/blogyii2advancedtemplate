@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use app\models\Comentario;
 use Yii;
 
 /**
@@ -137,5 +138,16 @@ class Articulo extends \yii\db\ActiveRecord
     public function getComentarios()
     {
         return $this->hasMany(Comentario::className(), ['articulo_id' => 'id']);
+    }
+
+    /**
+     *
+     * @return Integer número de comentarios
+     */
+    public function getTotalComentarios()
+    {
+        return $this->hasMany(Comentario::className(), ['articulo_id' => 'id'])
+            ->where('estado = true')
+            ->count('id');
     }
 }
