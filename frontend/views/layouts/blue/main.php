@@ -61,23 +61,24 @@ AppAsset::register($this);
                     ['label' => 'En Vivo', 'url' => ['/site/streaming']],
                     ['label' => 'Contacto', 'url' => ['/site/contact']],
                     // ['label' => 'Signup', 'url' => ['/site/signup']],
-                    
+                    /*
                     Yii::$app->user->isGuest ?
                         '' :
                         [
                             'label' => 'Admin',
                             'items' => [
-                                ['label' => 'Article', 'url' => ['/article/index']],
-                                ['label' => 'Category', 'url' => ['/category/index']],
-                                ['label' => 'Comment', 'url' => ['/comment/index']],
-                                ['label' => 'Streaming', 'url' => ['/streaming/index']],
+                                ['label' => 'Articulo', 'url' => ['@backend/articulo/index']],
+                                ['label' => 'Categoria', 'url' => ['@backend/categoria/index']],
+                                ['label' => 'Comentario', 'url' => ['@backend/comentario/index']],
+                                ['label' => 'En Vivo', 'url' => ['@backend/en-vivo/index']],
                                 [
                                     'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
                                     'url' => ['/site/logout'],
                                     'linkOptions' => ['data-method' => 'post']
                                 ],
                             ]
-                        ],      
+                        ],
+                         */      
                 ],
             ]);
             NavBar::end();
